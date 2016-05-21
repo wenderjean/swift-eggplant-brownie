@@ -36,7 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let row = indexPath.row
         let item = items[row]
-        var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
         cell.textLabel?.text = item.name
         return cell
     }
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             selected.append(items[indexPath.row])
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.None
-            if let position = find(selected, items[indexPath.row]) {
+            if let position = selected.indexOf(items[indexPath.row]) {
                 selected.removeAtIndex(position)
             }
         }
@@ -65,8 +65,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             return
         }
         
-        let name = nameField!.text
-        let happiness = happinessField!.text.toInt()
+        let name = nameField.text!
+        let happiness = Int(happinessField.text!)
         
         if happiness == nil {
             return

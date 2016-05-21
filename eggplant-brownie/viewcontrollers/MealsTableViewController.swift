@@ -21,10 +21,10 @@ class MealsTableViewController: UITableViewController, AddMealDelegate {
         let row = indexPath.row
         let meal = meals[row]
     
-        var cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
         cell.textLabel?.text = meal.name
         
-        print(cell.textLabel)
+        print(cell.textLabel, terminator: "")
         
         return cell
     }
