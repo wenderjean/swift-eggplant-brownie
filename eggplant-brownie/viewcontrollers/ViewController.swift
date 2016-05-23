@@ -12,11 +12,16 @@ protocol AddMealDelegate {
     func add(meal: Meal)
 }
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol AddAnItemDelegate {
+    func addItem(item: Item)
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddAnItemDelegate {
     
     @IBOutlet var nameField : UITextField!
     @IBOutlet var happinessField : UITextField!
     var delegate:AddMealDelegate?
+    @IBOutlet var tableView: UITableView!
     
     var items = [
         Item(name: "Eggplant Brownie", calories: 10),
@@ -28,6 +33,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     ]
 
     var selected = Array<Item>()
+    
+    override func viewDidLoad() {
+        let newItemButton = UIBarButtonItem(title: "New item",
+                                            style: UIBarButtonItemStyle.Plain,
+                                            target: self,
+                                            action: Selector("showNewItem"))
+        navigationItem.rightBarButtonItem = newItemButton
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
@@ -60,6 +73,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction
+    func showNewItem() {
+        let newItem = NewItemViewController(delegate: self)
+        if let navigation = navigationController {
+                navigation.pushViewController(newItem, animated: true)
+        }
+    }
+    
+    @IBAction
     func add() {
         if nameField == nil || happinessField == nil {
             return
@@ -85,6 +106,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if let navigation = self.navigationController {
             navigation.popViewControllerAnimated(true)
         }
+    }
+    
+    func addItem(item: Item) {
+        items.append(item)
+        if tableView == nil {
+            return
+        }
+        tableView!.reloadData();
     }
 }
 
