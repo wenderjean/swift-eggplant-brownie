@@ -17,6 +17,7 @@
 		410C41AC1CE76149001E43E4 /* eggplant_brownieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410C41AB1CE76149001E43E4 /* eggplant_brownieTests.swift */; };
 		4111E4ED1CF3B5F1006AD953 /* NewItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4111E4EB1CF3B5F1006AD953 /* NewItemViewController.xib */; };
 		4111E4EF1CF3B64E006AD953 /* NewItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111E4EE1CF3B64E006AD953 /* NewItemViewController.swift */; };
+		4111E4F11CF51B86006AD953 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4111E4F01CF51B86006AD953 /* Alert.swift */; };
 		417D3B0C1CEA87AB00A676A6 /* MealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417D3B0B1CEA87AB00A676A6 /* MealsTableViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		410C41AB1CE76149001E43E4 /* eggplant_brownieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eggplant_brownieTests.swift; sourceTree = "<group>"; };
 		4111E4EB1CF3B5F1006AD953 /* NewItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewItemViewController.xib; sourceTree = "<group>"; };
 		4111E4EE1CF3B64E006AD953 /* NewItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewItemViewController.swift; sourceTree = "<group>"; };
+		4111E4F01CF51B86006AD953 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		417D3B0B1CEA87AB00A676A6 /* MealsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealsTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,6 +83,7 @@
 			children = (
 				410BF4D71CE8C42700448FEC /* Main.storyboard */,
 				4111E4EB1CF3B5F1006AD953 /* NewItemViewController.xib */,
+				4111E4F01CF51B86006AD953 /* Alert.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				410BF4D21CE8C2CB00448FEC /* Meal.swift in Sources */,
 				410BF4D61CE8C3E000448FEC /* ViewController.swift in Sources */,
 				410C41961CE76149001E43E4 /* AppDelegate.swift in Sources */,
+				4111E4F11CF51B86006AD953 /* Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

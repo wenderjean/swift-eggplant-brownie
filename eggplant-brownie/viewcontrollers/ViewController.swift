@@ -110,10 +110,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func addItem(item: Item) {
         items.append(item)
-        if tableView == nil {
-            return
+        if let table = tableView {
+            table.reloadData();
+        } else {
+            Alert(controller: self).show("Unexpected error, but the item was added.")
         }
-        tableView!.reloadData();
     }
 }
 
