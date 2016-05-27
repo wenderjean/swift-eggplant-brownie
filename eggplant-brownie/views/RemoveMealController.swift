@@ -8,28 +8,21 @@
 
 import UIKit
 
-class RemoveMealController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class RemoveMealController {
+    
+    let controller: UIViewController
+    
+    init(controller: UIViewController) {
+        self.controller = controller
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func show(meal: Meal, handler: (UIAlertAction!) -> Void) {
+        let details = UIAlertController(title: meal.name, message: meal.details(), preferredStyle: UIAlertControllerStyle.Alert)
+        let btnRemove = UIAlertAction(title: "Remove", style: UIAlertActionStyle.Destructive, handler: handler)
+        let btnCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        details.addAction(btnRemove)
+        details.addAction(btnCancel)
+        
+        controller.presentViewController(details, animated: true, completion: nil)
     }
-    */
-
 }
