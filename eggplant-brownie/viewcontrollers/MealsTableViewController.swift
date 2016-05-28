@@ -10,8 +10,11 @@ import UIKit
 
 class MealsTableViewController: UITableViewController, AddMealDelegate {
     
-    var meals = [ Meal(name: "Eggplant brownie", happiness: 5),
-        Meal(name: "Zucchini Muffin", happiness: 3)]
+    var meals = Array<Meal>()
+    
+    override func viewDidLoad() {
+        meals = Dao().loadMeals()
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return meals.count
@@ -39,6 +42,7 @@ class MealsTableViewController: UITableViewController, AddMealDelegate {
     
     func add(meal: Meal) {
         meals.append(meal)
+        Dao().saveMeals(meals)
         tableView.reloadData()
     }
     
@@ -54,12 +58,10 @@ class MealsTableViewController: UITableViewController, AddMealDelegate {
             let row = indexPath!.row
             let meal = meals[row]
             
-            let details = UIAlertController(title: meal.name, message: meal.details(),
-                                            preferredStyle: UIAlertControllerStyle.Alert)
-            let ok = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil)
-            details.addAction(ok)
-            
-            presentViewController(details, animated: true, completion: nil)
+            RemoveMealController(controller: self).show(meal, handler: { action in
+                self.meals.removeAtIndex(row)
+                self.tableView.reloadData()
+            })
         }
     }
 }

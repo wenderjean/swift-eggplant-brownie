@@ -23,15 +23,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var delegate:AddMealDelegate?
     @IBOutlet var tableView: UITableView!
     
-    var items = [
-        Item(name: "Eggplant Brownie", calories: 10),
-        Item(name: "Zuchini Muffim", calories: 10),
-        Item(name: "Cookies", calories: 10),
-        Item(name: "Coconut Oil", calories: 500),
-        Item(name: "Chocolat Frosting", calories: 1000),
-        Item(name: "Chocolat Chip", calories: 1000)
-    ]
-
+    var items = Array<Item>()
     var selected = Array<Item>()
     
     override func viewDidLoad() {
@@ -40,6 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                             target: self,
                                             action: Selector("showNewItem"))
         navigationItem.rightBarButtonItem = newItemButton
+        items = Dao().loadItems()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,45 +69,59 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func showNewItem() {
         let newItem = NewItemViewController(delegate: self)
         if let navigation = navigationController {
-                navigation.pushViewController(newItem, animated: true)
+            navigation.pushViewController(newItem, animated: true)
+        } else {
+            Alert(controller: self).show();
         }
     }
     
     @IBAction
     func add() {
+        if let meal = getMealFromForm() {
+            if delegate == nil {
+                return
+            }
+            
+            if let meals = delegate {
+                meals.add(meal);
+                if let navigation = self.navigationController {
+                    navigation.popViewControllerAnimated(true)
+                } else {
+                    Alert(controller: self).show("Unexpected error, but the meal was added.");
+                }
+                return
+            }
+        }
+        
+        Alert(controller: self).show();
+    }
+    
+    func addItem(item: Item) {
+        items.append(item)
+        Dao().saveItems(items)
+        if let table = tableView {
+            table.reloadData();
+        } else {
+            Alert(controller: self).show("Unexpected error, but the item was added.")
+        }
+    }
+    
+    func getMealFromForm() -> Meal? {
         if nameField == nil || happinessField == nil {
-            return
+            return nil
         }
         
         let name = nameField.text!
         let happiness = Int(happinessField.text!)
         
         if happiness == nil {
-            return
+            return nil
         }
         
         let meal = Meal(name: name, happiness: happiness!)
         meal.items = selected
         
-        
-        if delegate == nil {
-            return
-        }
-        
-        delegate!.add(meal)
-        
-        if let navigation = self.navigationController {
-            navigation.popViewControllerAnimated(true)
-        }
-    }
-    
-    func addItem(item: Item) {
-        items.append(item)
-        if let table = tableView {
-            table.reloadData();
-        } else {
-            Alert(controller: self).show("Unexpected error, but the item was added.")
-        }
+        return meal
     }
 }
 
